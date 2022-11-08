@@ -6,16 +6,21 @@ namespace Library
 {
     public class Node
     {
-        private int number;
+        public void AcceptVisit(Visitor visitor)
+        {
+            visitor.Visit(this);
+        }
+        public void AcceptOldest(Visitor visitor)
+        {
+            visitor.VisitOldest(this);
+        }
+        public void AcceptLongest(Visitor visitor)
+        {
+            visitor.VisitLongestName(this);
+        }
+        public Person Persona;
 
         private List<Node> children = new List<Node>();
-
-        public int Number {
-            get
-            {
-                return this.number;
-            }
-        }
 
         public ReadOnlyCollection<Node> Children { 
             get
@@ -24,9 +29,9 @@ namespace Library
             }
         }
 
-        public Node(int number)
+        public Node(string name, int age)
         {
-            this.number = number;
+            this.Persona = new Person(name, age);
         }
 
         public void AddChildren(Node n)
