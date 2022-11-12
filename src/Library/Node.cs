@@ -4,21 +4,24 @@ using System;
 
 namespace Library
 {
-    public class Node
+    public class Node : NodeOperations
     {
-        public void AcceptVisit(Visitor visitor)
+        public void Accept(TotalAgeVisitor visitor)
         {
-            visitor.Visit(this);
+            visitor.VisitNode(this);
         }
-        public void AcceptOldest(Visitor visitor)
+        public void Accept(OldestVisitor visitor)
         {
-            visitor.VisitOldest(this);
+            visitor.VisitNode(this);
         }
-        public void AcceptLongest(Visitor visitor)
+        private int Number;
+        public int GetNumber
         {
-            visitor.VisitLongestName(this);
+            get
+            {
+                return this.Number;
+            }
         }
-        public Person Persona;
 
         private List<Node> children = new List<Node>();
 
@@ -29,9 +32,9 @@ namespace Library
             }
         }
 
-        public Node(string name, int age)
+        public Node(int number)
         {
-            this.Persona = new Person(name, age);
+            this.Number = number;
         }
 
         public void AddChildren(Node n)
@@ -39,5 +42,29 @@ namespace Library
             this.children.Add(n);
         }
         
+        /*Calcular edades*/
+        public int TotalAge()
+        {
+            int total = Number;
+            foreach (Node node in Children)
+            {
+                total += node.Number;
+            }
+            return total;
+        }
+
+        /*Mayor*/
+        public int Oldest()
+        {
+            int oldest = 0;
+            foreach (Node node in Children)
+            {
+                if (node.Number > oldest)
+                {
+                    oldest = node.Number;
+                }
+            }
+            return oldest;
+        }
     }
 }

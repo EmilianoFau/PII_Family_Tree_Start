@@ -7,14 +7,13 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            Node n1 = new Node("Emiliano", 20);
-            Node n2 = new Node("Joaquín", 20);
-            Node n3 = new Node("Catalina", 18);
-            Node n4 = new Node("Luciano", 23);
-            Node n5 = new Node("Lucía", 32);
-            Node n6 = new Node("Lola", 5);
-            Node n7 = new Node("Pepito", 13);
-            Node n8 = new Node("Mauricio", 27);
+            Node n1 = new Node(1);
+            Node n2 = new Node(2);
+            Node n3 = new Node(3);
+            Node n4 = new Node(4);
+            Node n5 = new Node(5);
+            Node n6 = new Node(6);
+            Node n7 = new Node(7);
 
             n1.AddChildren(n2);
             n1.AddChildren(n3);
@@ -24,20 +23,41 @@ namespace Program
 
             n3.AddChildren(n6);
             n3.AddChildren(n7);
-            n3.AddChildren(n8);
 
             // visitar el árbol aquí
-            NodeVisitor visitAge = new NodeVisitor();
-            NodeVisitor visitOldest = new NodeVisitor();
-            NodeVisitor visitLongest = new NodeVisitor();
+            Person p1 = new Person("Mauricio", 22);
+            Person p2 = new Person ("Pepito", 12);
+            Person p3 = new Person("Agustina", 16);
+            Person p4 = new Person ("Lucia", 34);     
+            Person p5 = new Person ("Lucas", 11);            
+            Person p6 = new Person ("Emiliano", 19);
+            Person p7 = new Person("Sofia", 20);
+            Person p8 = new Person ("Catalina", 21);
 
-            n1.AcceptVisit(visitAge);
-            n1.AcceptOldest(visitOldest);
-            n1.AcceptLongest(visitLongest);
+            p1.AddChildren(p2);
+            p1.AddChildren(p3);
 
-            Console.WriteLine($"La suma de todas las edades es: {visitAge.TotalAge}");
-            Console.WriteLine($"El hijo mayor es {visitOldest.Oldest.Name}, y tiene {visitOldest.Oldest.Age} años");
-            Console.WriteLine($"El nombre más largo es: {visitLongest.Longest.Name}");
+            p4.AddChildren(p5);
+            p4.AddChildren(p6);
+
+            p7.AddChildren(p8);
+
+            TotalAgeVisitor ageVisitor = new TotalAgeVisitor();
+            LargestVisitor largestVisitor = new LargestVisitor();
+            OldestVisitor oldestVisitor = new OldestVisitor();
+
+            Console.WriteLine("Total de edades:");
+            ageVisitor.Operations(p7);
+
+            Console.WriteLine("Personas:");
+            ageVisitor.Operations(p4);
+            largestVisitor.Operations(p4);
+            oldestVisitor.Operations(p4);
+
+            Console.WriteLine("Nodos:");
+            ageVisitor.Operations(n3);
+            oldestVisitor.Operations(n3);
+
         }
     }
 }
